@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: true
+
+
+  tasks:
+
+
+  - name: Install Updates for debian / ubuntu
+    apt:
+     update_cache: yes
+     upgrade: yes
+    when: ansible_os_family == "Debian"
+
+
+  - name: Install Updates for CentOS
+    dnf:
+     name: "*"
+     state: latest
+    when: ansible_os_family == "RedHat"
+

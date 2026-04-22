@@ -1,2 +1,8 @@
 [local]
 localhost ansible_connection=local
+
+[Pentesting_Servers]
+192.168.1.10
+
+[Web_servers]
+192.168.1.9

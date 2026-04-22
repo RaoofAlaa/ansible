@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: true
+
+  pre_tasks:
+
+
+  tasks:
+
+  - name: install updates for CentOS
+    tags: update
+    dnf:
+     update_only: yes
+     update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+
+  - name: install updates for Ubuntu
+    tags: update
+    apt:
+     upgrade: dist
+     update_cache: yes
+    when: ansible_distribution_file_variety in ["Debian","Ubuntu"]
+

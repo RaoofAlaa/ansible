@@ -5,9 +5,10 @@
   tasks:
 
   - name: install httpd package
-    dnf: 
-     name: httpd
-
-  - name: update repo index 
-    dnf:
+    apt:
+     name:
+      - apache2
+      - libapache2-mod-php
+     state: latest
      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
