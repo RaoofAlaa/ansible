@@ -1,0 +1,7 @@
+- name: Install Basic Utils
+  package:
+    name:
+    - tree
+    - wget
+    - curl
+    state: present

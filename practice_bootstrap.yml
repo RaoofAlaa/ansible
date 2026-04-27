@@ -1,0 +1,50 @@
+
+
+
+
+
+- name: Bootstrap and add user
+  hosts: all
+  become: true
+  tasks:
+    - name: Install sudo
+      ansible.builtin.package:
+       name: sudo
+       state: present
+
+
+    - name: Create devops group
+      ansible.builtin.group:
+       name: devops
+       state: present
+
+    - name: Create bob user
+      user:
+       name: bob
+       shell: /bin/bash
+       groups: devops
+       append: true
+       create_home: true
+       state: present
+
+    - name: Create bob .ssh directory
+      ansible.builtin.file:
+       path: /home/bob/.ssh
+       state: directory
+       owner: bob
+       group: bob
+       mode: '0700'
+
+
+    - name: Add bob SSH key
+      authorized_key:
+       user: bob
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFTHaeO/2vQ1c9hXzaQIQBumZXPpXhOk1synYtOtxKj raoof@mentos"
+
+    - name: Add sudoers file for devops
+      copy:
+       src: sudoer_devops
+       dest: /etc/sudoers.d/devops
+       owner: root
+       group: root
+       mode: '0440'

@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: create user
+    user:
+     name: sofa
+     groups: root
+
+  - name: add ssh key for sofa
+    authorized_key:
+     user: sofa
+     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAFTHaeO/2vQ1c9hXzaQIQBumZXPpXhOk1synYtOtxKj raoof@mentos"
+

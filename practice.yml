@@ -1,0 +1,34 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Ensuring nginx is installed
+    tags: service
+    package:
+     name: nginx
+     state: present
+
+  - name: Starting & Enabling the Nginx
+    tags: service
+    service:
+     name: nginx
+     state: started
+     enabled: true
+
+  - name: Ensuring the line exists
+    tags: files
+    lineinfile:
+     path: /etc/motd
+     line: "Managed by Ansible"
+     create: true
+
+  - name: Adding  needed line
+    tags: files
+    lineinfile:
+     path: /etc/motd
+     line: "Welcome Debian user"
+     create: true
+    when: ansible_os_family == "Debian"
+

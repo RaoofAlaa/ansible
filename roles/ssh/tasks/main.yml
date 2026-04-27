@@ -1,0 +1,17 @@
+- name: Update SSH port
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?Port\s+'
+    line: "Port {{ ssh_port }}"
+    state: present
+    backup: yes
+  notify: Restart ssh service
+
+- name: Update PermitRootLogin
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin\s+'
+    line: "PermitRootLogin {{ permit_root_login }}"
+    state: present
+    backup: yes
+  notify: Restart ssh service

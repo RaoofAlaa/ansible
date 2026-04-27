@@ -1,0 +1,5 @@
+- name: Configure SSH
+  hosts: linuxservers
+  become: yes
+  roles:
+    - ssh
